@@ -266,3 +266,34 @@ function fibonacci(n) {
 1. fibonacci(5)호출 한다고 가정해보자 그러면 n이 1이하 될때까지 뒤에서부터 순차적으로 (n-1) + (n-2)의 값을 구하게 될것이다.  
 2. fibonacci(5) -> fibonacci(4), fibonacci(3)을 호출 이들은 다시 또 n-1, n-2 값인 fibonacci(3), fibonacci(2) / fibonacci(2), fibonacci(1)를 호출하며 fibonacci(1)에 다다르면 1을 리턴하고, fibonacci(0)에 다다르면 0을 호출  
 3. 다시 위로 올라가며 값들을 더한다 (Ex. fibonacci(3)은 fibonacci(2)의 값 1과 fibonacci(1)의 값 1이 더해져 2가 들어감)
+
+### 9️⃣ 호이스팅 정리
+
+- https://junhobaik.github.io/js-let-cont-hoisting/
+
+개인적으로 호이스팅에 관련해서는 어느정도 알고 있다고 생각하여 정리를 하지 않으려고 했는데 ES5에서의 var 변수와달리 let/const 키워드로 변수 할당시 TDZ라는 개념이 등장하여 위 링크를 참고항여 정리하게 되었다.
+
+```javascript
+// 1. var 키워드로 변수 선언 하기
+// 선언 - 초기화 - 할당 의 단계가 존재하며
+// 선언 - 초기화가 한번에 이루어지고 다음에 할당
+console.log(a); // undefined
+var a = 10;
+
+// 2. ES6에서 도입된 let,const 키워드는 선언, 초기화, 할당이 따로 이루어지고 TDZ(Temporal Dead Zone)라는 것이 존재
+// let, const 키워드로 선언 하기
+// 선언 - TDZ - 초기화 - 할당 단계 존재
+let a = 10;
+{
+  // block scope 안에서 호이스팅
+  console.log(a); // Uncaught ReferenceError: a is not defined
+  let a = 20;
+}
+
+```
+
+먼저 새롭게 알게된 TDZ란 ? 스코프의 시작 지점부터 초기화 시작 지점까지의 구간을 의미한다.  
+let, const는 선언전, 실행 컨텍스트 변수 객체에 등록이 되어 호이스팅이 되지만,
+이 TDZ 구간에 의해 메모리가 할당이 되질 않아 참조 에러(ReferenceError) 발생한것  
+
+> let,const 키워드로 선언하면 지금까지 호이스팅이 되지 않는다고 생각했지만 이와는 달리 호이스팅은 된다! 단지 선언만 호이스팅 되는 것일뿐..
