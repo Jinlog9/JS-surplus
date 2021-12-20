@@ -134,3 +134,83 @@ var func = () => ({ foo: 1 });
 - [x]  필요한 인자를 입력받아 **원기둥의 넒이**를 계산하는 함수를 만든다.
 - [x]  숫자가 아니면 **에러를 반환**하도록 구현한다.
 - [x]  인자의갯수가 **부족하면 에러를 반환**한다.
+- [x]  재사용하기 위한 getArea 함수 만들기
+- [ ]  로깅을 기록하기 위한 printExecutionSequence 함수 만들기
+
+### ES2015에 추가된 기능 정리
+
+
+
+### 6️⃣ call by value, call by reference의 차이
+
+### 7️⃣ 자바스크립트 콜스택 동작원리
+
+### 8️⃣ 팩토리얼, 피보나치 수열 재귀로 구현
+
+#### 1. 팩토리얼
+
+```javascript
+function factorial(n) {
+    // 10! = 3628800
+
+    // 반복문
+    // let sum = 1;
+    // for(let i = 1; i <= n; i++) {
+    //     sum *= i;
+    // }
+    // return sum;
+
+    // 재귀
+    if(n === 1) {
+        return 1;
+    }
+    return n * factorial(n-1);
+}
+```
+
+오랜만에 재귀를 풀어보려니 헷갈려서 먼저 반복문으로 구현해본다음에 재귀롤 변형시켰다.  
+재귀에서는 리턴부분에서 함수를 계속해서 리턴시켰는데 이러면 콜스택에 순서대로 쌓여 다시 역순으로 계산된다.  
+factorial(3)을 호출하게된다면 아래처럼 코드가 동작된다.
+> 1. n = 3 : n * fatorial(2) -> 6
+> 2. n = 2 : n * factorial(1) -> 2
+> 3. n = 1 : 1
+
+---
+
+#### 피보나치 수열
+
+```javascript
+function fibonacci(n) {
+    // 피보나치 수열(10) = 55
+    // 1 1 2 3 5 8 13 21 34 55
+    // 반복문
+    // let firstValue = 1;
+    // let secondValue = 1;
+    // if(n === 1 || n ===2) {
+    //     return 1;
+    // }
+
+    // let temp = 1;
+    // for(let i = 3; i <= n; i++) {
+    //     temp = firstValue + secondValue;
+    //     firstValue = secondValue;
+    //     secondValue = temp;
+    // }
+
+    // return temp;
+
+    // 재귀
+    if(n <= 1) return n;
+    return fibonacci(n-1) + fibonacci(n-2);
+}
+```
+
+팩토리얼을 구현하고 나서 비슷한류의 문제인 피보나치 수열은 바로 풀 수 있었다.  
+문제를 풀기 전에 피보나치 수열이란 뭐였지 헷갈려서 찾아봄..  
+피보나치 수열은 0과 1로 시작하고  n번째 피보나치 수는 바로 직전의 두 피보나치 수의 합!  
+
+그럼 바로 문제를 풀어보자  
+나는 이번에도 반복문으로 먼저 구현해보고 재귀로 풀어보았다.  
+1. fibonacci(5)호출 한다고 가정해보자 그러면 n이 1이하 될때까지 뒤에서부터 순차적으로 (n-1) + (n-2)의 값을 구하게 될것이다.  
+2. fibonacci(5) -> fibonacci(4), fibonacci(3)을 호출 이들은 다시 또 n-1, n-2 값인 fibonacci(3), fibonacci(2) / fibonacci(2), fibonacci(1)를 호출하며 fibonacci(1)에 다다르면 1을 리턴하고, fibonacci(0)에 다다르면 0을 호출  
+3. 다시 위로 올라가며 값들을 더한다 (Ex. fibonacci(3)은 fibonacci(2)의 값 1과 fibonacci(1)의 값 1이 더해져 2가 들어감)
