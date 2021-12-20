@@ -38,7 +38,7 @@ console.log(createSum(1, 2, 3, 4, 5));
 
 ### 2️⃣ default Paraemter & rest Paraemter
 
-ES6이전에는 rest parameter 라는 좋은 기능이 없어 default parameter를 따랐다. rest parameter문법은 매개변수 처리하는 과정을 쉽게 도와주는 역할을 하는데  매개변수 이름 앞에 세개의 점 ...을 붙여서 정의한 매개변수를 의미한다.  
+ES6이전에는 rest parameter 라는 좋은 기능이 없어 default parameter를 따랐다. rest parameter문법은 매개변수 처리하는 과정을 쉽게 도와주는 역할을 하는데  매개변수 이름 앞에 세개의 점 ...을 붙여서 함수의 인자에 사용하면 인자를 배열로 받을 수 있다고한다.  
 그럼 코드를 통해서 두가지 차이점을 살펴보자
 
 ```javascript
@@ -81,7 +81,7 @@ obj.c(); // prints 10, Object {...}
 ```
 
 MDN공식문서에서 그대로 가져온 소스다.  
-브라우저환겨에서 obj.b() 호출 시 undefined, Window객체가 찍히는데 그 이유는 바로 화살표 함수는 this가 자신인 b를 바인딩 하지않고 전역객체를 바인딩하기 때문!
+브라우저환경에서 obj.b() 호출 시 undefined, Window객체가 찍히는데 그 이유는 바로 화살표 함수는 this가 자신인 b를 바인딩 하지않고 전역객체를 바인딩하기 때문!
 
 ### new 연산자 & prototype 속성
 
@@ -137,9 +137,61 @@ var func = () => ({ foo: 1 });
 - [x]  재사용하기 위한 getArea 함수 만들기
 - [ ]  로깅을 기록하기 위한 printExecutionSequence 함수 만들기
 
-### ES2015에 추가된 기능 정리
+### ES2015에 추가된 기능
 
+- https://takeknowledge.tistory.com/115
 
+위 링크를 참조하여 내가 몰랐던 문법이나 헷갈려하는 부분만 브라우저에서 테스트하면서 다시 정리
+
+1. for..of
+```javascript
+let cats = ['Persian', 'Bengal', 'Maine' , 'Ragdoll'];
+const str = 'Seongjin';
+
+for(let cat of cats){
+    console.log(cat); // 'Persian', 'Bengal'
+    // forEach에서는 할 수 없는 내부에서 break 문 사용 가능
+    if(year == 'Maine'){
+        break;
+    }
+}
+ 
+for(let char of str){
+    console.log(char);
+    // S, e, o, n, g, j, i, n
+}
+```
+
+2. includes
+```javascript
+let cats = ['Persian', 'Bengal', 'Maine' , 'Ragdoll'];
+
+// Es5
+console.log(cats.indexOf('Persian') !== -1); // true
+console.log(cats.indexOf('Scottish') !== -1); // false
+
+console.log(cats.includes('Persian'));  // true
+console.log(cats.includes('Scottish')); // false
+```
+
+es5에서 배열에 특정 값이 있는지 알고싶으면 indexOf를 활용해 -1 값이 있는지 체크 해줬어야함 But, es6에선 includes를 사용시 배열에 특정값이 있는지를 깔끔하게 확인가능
+
+3. Trailing Commas
+
+es6부터는 trailing comma를 지원 -> 객체나 배열의 마지막 값 뒤에 ,을 붙여도 된다.  
+```javascript
+const myCat = {
+    name : 'mama',
+    age: 3,
+};
+ 
+console.log(myCat);
+// { name: 'mama', age: 3 }
+```
+
+Es6 이전에도 가능한 문법이라 생각했는데 인지 안하고 사용하면 IE7이하 버전에서는 문제가 생길 수 있으니 알고가자.
+
+이외에도 ES6에서 도입된 문법으론 Map & Set, 클래스문법, import & export 구문, 비구조화 할당, rest parameter, arrow function, Async & Await, let & const가 존재한다.
 
 ### 6️⃣ call by value, call by reference의 차이
 
