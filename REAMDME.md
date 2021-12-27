@@ -162,6 +162,9 @@ for(let char of str){
 }
 ```
 
+for..of의 경우에는 반복할수 있는 객체(cats)의 값이 cat에 할당되어 반복이 진행된다.  
+자바스크립트 에서 반복할 수 있는 객체는 Array, Map, Set, arguments 객체 등이 있다.
+
 2. includes
 ```javascript
 let cats = ['Persian', 'Bengal', 'Maine' , 'Ragdoll'];
@@ -195,9 +198,25 @@ Es6 이전에도 가능한 문법이라 생각했는데 인지 안하고 사용�
 
 ### 6️⃣ call by value, call by reference의 차이
 
+먼저 두 개념의 차이점을 정리해보자
+
+1. call by value
+
+- immutable한 값으로 원시 형태의 값을 사용하는 경우를 의미한다. (매개변수로 기본형 타입을 사용할 경우 call by value)
+
+2. call by reference
+
+- mutable한 값으로 위와는 반대로 참조 값을 사용하는 경우다. (매개변수로 객체를 넘길때 call by reference)
+
+3.  call by reference도 call by value와 똑같이 원본 값을 복사해서 사용!  
+하지만, 값이라는 매개변수로 사용하는 상황에서 이때 사용되는 값이 값을 사용하는지, 참조 값을 사용하는지에 따라 by value, by reference를 지칭한다.
+
+4. 자바스크립트에서는 항상 call by value를 사용한다고 말한다.. why? 다른 언어와 달리 JS는 객체의 프로퍼티 값이 아닌 객체 자체의 변경을 허용하지 않는다.  
+만약 매개변수로 주소값을 넘긴다면 주소값 본체를 넘기는게 아닌 그 주소값의 똑같은 복사본을 만들어서 넘기기 때문
+
 ### 7️⃣ 자바스크립트 콜스택 동작원리
 
-### 8️⃣ 팩토리얼, 피보나치 수열 재귀로 구현
+### 8️⃣ 팩토리얼, 피보나치 수열 재귀로 구현 ⬇️
 
 #### 1. 팩토리얼
 
