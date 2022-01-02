@@ -193,3 +193,20 @@ initialValue : callback의 최초 호출에서 첫 번째 인수에 제공하는
 ```
 
 ** reduce는 javascript 내장메서드 중에서 꽃이라고 불리운다. 그만큼 사용용도가 다양하고 좋은 메서드다. 앞으로 자유자재로 사용할 줄 알게되면 정말 유용하다고 하니 앞으로 많이 사용하는 습관을 가지자.
+
+## Map & Set
+
+Map과 Object 의 차이 ?
+
+Map은 우선 Object와 데이터타입이 동일하게 [key, value]의 형태로 이루어져있음
+
+1. Map의 키는 함수, 객체 등을 포함한 모든 값이 가능 but, Object의 키는 반드시 String 또는 Symbol
+2. Map의 키는 정렬되서 Map의 순회는 삽입순으로 이뤄지지만, Object 키는 정렬되지 않는다.
+3. Map의 항목 수는 size 속성을 통해 쉽게 알아낼 수 있지만, Object의 항목 수는 따로 속성이 없어서 직접 알아내야함
+
+Object와 비슷한 Map 언제 쓰일까 ?  
+
+> Map이 key값을 사용해 property를 delete하는 경우, key값에 대한 정렬, 굉장히 큰 양의 데이터를 저장한 경우
+
+
+
