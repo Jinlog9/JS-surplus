@@ -1,5 +1,11 @@
 import Box from "./Box.js";
-import { bubbleSort, selectionSort } from "./SortAlgo.js";
+import {
+  bubbleSort,
+  insertionSort,
+  mergeSort,
+  quickSort,
+  selectionSort,
+} from "./SortAlgo.js";
 import { randomData } from "./util.js";
 
 export const EventListener = () => {
@@ -7,7 +13,6 @@ export const EventListener = () => {
   sortUl.addEventListener("click", ({ target }) => {
     if (target.tagName === "LI") {
       const id = target.getAttribute("id");
-      console.log(Box.boxes);
       switch (id) {
         case "bubble":
           Box.valueInit();
@@ -16,6 +21,18 @@ export const EventListener = () => {
         case "selection":
           Box.valueInit();
           selectionSort(randomData);
+          break;
+        case "insertion":
+          Box.valueInit();
+          insertionSort(randomData);
+          break;
+        case "merge":
+          Box.valueInit();
+          mergeSort(randomData);
+          break;
+        case "quick":
+          Box.valueInit();
+          quickSort(randomData);
           break;
       }
     }
