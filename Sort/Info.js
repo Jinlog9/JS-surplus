@@ -1,7 +1,5 @@
 export default class Info {
-    operationNum;
-    arr;
-    constructor() {
-        
-    }
+  operationNum;
+  arr;
+  constructor() {}
 }
