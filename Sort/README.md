@@ -42,7 +42,7 @@ export const bubbleSort = (datas) => {
       }
     }
   }
-  console.log(`비교 연삿횟수 : ${operationNum}`);
+  console.log(`비교 연산횟수 : ${operationNum}`);
   console.log(`교환횟수 : ${swapNum}`);
   console.log(arr);
   return arr;
@@ -77,14 +77,14 @@ export const bubbleSort = (datas) => {
     }
     if (flag) break;
   }
-  console.log(`비교 연삿횟수 : ${operationNum}`);
+  console.log(`비교 연산횟수 : ${operationNum}`);
   console.log(`교환횟수 : ${swapNum}`);
   console.log(arr);
   return arr;
 };
 ```
 
-flag값이 없었을때는 정렬이 이미 되어있는 상태여도 계속해서 비교를 하여 총 10번 횟수를 swap 하지만, flag 값으로 이미 정렬되어 있는 경우엔 break로 빠져나와 7번만의 swap 횟수를 줄일 수 있었다.
+flag값이 없었을때는 정렬이 이미 되어있는 상태여도 계속해서 비교를 하여 총 45번 횟수를 비교하지만, flag 값으로 이미 정렬되어 있는 경우엔 break로 빠져나와 35번으로 줄일 수 있었다.
 
 > 비교횟수가 현저히 줄어든거 볼 수 있지만, 중간에 이 flag라는 변수와, 조건문의 추가로 내부 반복문이 모든 배열을 순회하지 않고 정렬이 되었을시 break 된다. 이 정도의 변수추가와 조건문 추가는 내가 생각하기에 가독성상 큰 문제라고 생각하지 않기 때문에 맨 처음에 작성했던 코드보다 더 좋다고 생각한다.
 
@@ -119,7 +119,7 @@ export const selectionSort = () => {
     swap(arr, i, min);
     swapNum++;
   }
-  console.log(`비교 연삿횟수 : ${operationNum}`);
+  console.log(`비교 연산횟수 : ${operationNum}`);
   console.log(`교환횟수 : ${swapNum}`);
   console.log(arr);
   return arr;
@@ -163,7 +163,7 @@ export const insertionSort = (datas) => {
     }
   }
 
-  console.log(`비교 연삿횟수 : ${operationNum}`);
+  console.log(`비교 연산횟수 : ${operationNum}`);
   console.log(`교환횟수 : ${swapNum}`);
   console.log(arr);
 };
@@ -176,6 +176,40 @@ export const insertionSort = (datas) => {
 합병 정렬 ? 전체 배열의 반으로 쪼개고 쪼개서 1개가 될 때까지 쪼갠다음에 다시 합병과 정렬을 하면서 정렬된 배열을 마지막에 만드는 방법이다. 합병정렬은 그림으로 보면 확 이해가 빨라서 직접 그려보았다.
 
 ![mergeSort](./image/mergeSort.jpg)
+
+```javascript
+const conquer = (arr) => {
+  if (arr.length === 1) return arr;
+  const mid = parseInt(arr.length / 2);
+  const leftArr = arr.slice(0, mid);
+  const rightArr = arr.slice(mid);
+  return combine(conquer(leftArr), conquer(rightArr));
+};
+
+const combine = (left, right) => {
+  const tmp = [];
+  let leftIndex = 0;
+  let rightIndex = 0;
+
+  while (leftIndex < left.length && rightIndex < right.length) {
+    if (left[leftIndex] < right[rightIndex]) {
+      tmp.push(left[leftIndex]);
+      leftIndex++;
+    } else {
+      tmp.push(right[rightIndex]);
+      rightIndex++;
+    }
+  }
+
+  return tmp.concat(left.slice(leftIndex), right.slice(rightIndex));
+};
+
+export const mergeSort = (datas) => {
+  const arr = _.cloneDeep(datas);
+  const sortedArr = conquer(arr);
+  console.log(sortedArr);
+};
+```
 
 장점 ?
 
@@ -196,6 +230,38 @@ export const insertionSort = (datas) => {
 
 ![quickSort](./image/quickSort.jpg)
 
+```javascript
+const partition = (arr, start, end) => {
+  const pivot = arr[parseInt((start + end) / 2)];
+  while (start <= end) {
+    while (arr[start] < pivot) start++;
+    while (arr[end] > pivot) end--;
+    if (start <= end) {
+      swap(arr, start, end);
+      start++;
+      end--;
+    }
+  }
+  return start;
+};
+
+const _quickSort = (arr, start, end) => {
+  const index = partition(arr, start, end);
+  if (start < index - 1) {
+    _quickSort(arr, start, index - 1);
+  }
+  if (index < end) {
+    _quickSort(arr, index, end);
+  }
+};
+
+export const quickSort = (datas) => {
+  const arr = _.cloneDeep(datas);
+  _quickSort(arr, 0, arr.length - 1);
+  console.log(arr);
+};
+```
+
 장점 ?
 
 1. 시간 복잡도가 O(nlog₂n)를 가지는 다른 정렬 알고리즘과 비교했을 때도 가장 빠르다.
@@ -208,7 +274,7 @@ export const insertionSort = (datas) => {
 
 | 알고리즘 | 최선 시간 복잡도 | 평균 시간 복잡도 | 최악 시간 복잡도 | 안정/불안정 |
 | -------- | ---------------- | ---------------- | ---------------- | ----------- |
-| 버블정렬 | O(N)             | O(N2)            | O(N2)            | 안정        |
+| 버블정렬 | O(N2)            | O(N2)            | O(N2)            | 안정        |
 | 선택정렬 | O(N2)            | O(N2)            | O(N2)            | 불안정      |
 | 삽입정렬 | O(N)             | O(N2)            | O(N2)            | 안정        |
 | 합병정렬 | O(NlogN)         | O(NlogN)         | O(NlogN)         | 안정        |
