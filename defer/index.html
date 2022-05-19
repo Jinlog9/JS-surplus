@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>async / defer...</title>
+  </head>
+  <body>
+    <script>
+      document.addEventListener("DOMContentLoaded", () =>
+        alert("DOM이 준비되었습니다!")
+      );
+    </script>
+    <div id="main">Script Before Load Test</div>
+    <script
+      async
+      src="https://javascript.info/article/script-async-defer/long.js"
+    ></script>
+    <script
+      async
+      src="https://javascript.info/article/script-async-defer/small.js"
+    ></script>
+    <div id="main">Script After Load Test</div>
+  </body>
+</html>
